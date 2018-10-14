@@ -52,7 +52,21 @@
       <input type="file" class="form-control-file" id="profileImage" accept="image/*" name="upload" aria-describedby="fileHelp">
       <small id="fileHelp" class="form-text text-muted">Jpeg, Png, Bmp ...</small>
     </div>
-
+ <fieldset class="form-group hidden">
+      <legend>JS Library</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="ImageTools" >
+        Use ImageTools Lib
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="LoadImage" checked>
+        Use Load Image Lib
+      </label>
+      </div>
+    </fieldset>
     <button type="submit" class="btn btn-primary" id="submitButton">
       <i class="fa fa-camera-retro fa-lg"></i> Upload
     </button>
