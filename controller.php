@@ -34,8 +34,7 @@ function getFolderContent($folder) {
 }
 
 if($_POST && $_FILES) {
-    echo "Server response after POST:"; print_r($_POST); print_r($_FILES);
-    
+    //echo "Server response after POST:"; print_r($_POST); print_r($_FILES);
     $response[] = $_POST;
     $response[] = $_FILES;
     // store_file($temp_filename,$original_filename);
@@ -47,7 +46,6 @@ if($_POST && $_FILES) {
     else if(isset($_FILES["resizedImage"])) {               
         $temp_filename = $_FILES["resizedImage"]["tmp_name"]; 
         $original_filename = $_FILES["resizedImage"]["name"]; 
-		
         store_file($temp_filename,$original_filename);
     }
     

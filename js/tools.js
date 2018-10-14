@@ -16,23 +16,17 @@ $(function () {
   function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || "";
     sliceSize = sliceSize || 512;
-
     var byteCharacters = atob(b64Data);
     var byteArrays = [];
-
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
       var slice = byteCharacters.slice(offset, offset + sliceSize);
-
       var byteNumbers = new Array(slice.length);
       for (var i = 0; i < slice.length; i++) {
         byteNumbers[i] = slice.charCodeAt(i);
       }
-
       var byteArray = new Uint8Array(byteNumbers);
-
       byteArrays.push(byteArray);
     }
-
     var blob = new Blob(byteArrays, {
       type: contentType
     });
@@ -66,12 +60,10 @@ $(function () {
       //convert everything to jpg
       imageName = files[0].name;
       imageName = imageName.slice(0, -4) + ".jpg";
-
       var useImageTools =
         $("input[name=optionsRadios]:checked").val() == "ImageTools";
       var useLoadImage =
         $("input[name=optionsRadios]:checked").val() == "LoadImage";
-
       if (useImageTools) {
         /*Resize with Image Tools */
         ImageTools.resize(
@@ -91,7 +83,6 @@ $(function () {
           function (img) {
             $img = $(img);
             $img.attr("id", "profile-image");
-
             var $previewLink = $('<a target="_blank">')
               .append(img)
               .attr("download", imageFilenamePrefix + imageName)
@@ -131,7 +122,8 @@ $(function () {
                 type: "image/jpg"
               });
             }
-          }, {
+          }, 
+          {
             maxWidth: $("input[name=ImageMaxWidth]").val(),
             maxHeight: $("input[name=ImageMaxHeight]").val(),
             canvas: true,
@@ -165,40 +157,30 @@ $(function () {
     if (blobTmp !== undefined) {
       //e.preventDefault();
       var copyFormDataNew = new FormData();
-      var firstName = $("input[name=FirstName]").val();
-      var secondName = $("input[name=LastName]").val();
-      var email = $("input[name=Email]").val();
-      var objt = {
-        FirstName: firstName,
-        LastName: secondName,
-        Email: email
-      };
-      var myJSON = JSON.stringify(objt);
-      copyFormDataNew.append("resizedModel", myJSON);
       copyFormDataNew.append("resizedImage", blobTmp, imageName);
         
-        $.ajax({
-                url: BackendControllerUrl(),
-                type: "POST",
-                data: copyFormDataNew,
-                processData: !1,
-                contentType: !1
-            }).done(function (response) {
-                someParamToCheck = !1;
-                blobTmp = undefined;
-                /*
-                    params tocheck could be request type: post or files
-                */
-                if (someParamToCheck) {
-                    window.location = HomeUrl();
-                }
-                console.log(response, "image uploaded");
-                window.location = window.location;
-            })
-      return false;
-    } else {
-      return true;
-    }
+      $.ajax({
+              url: BackendControllerUrl(),
+              type: "POST",
+              data: copyFormDataNew,
+              processData: !1,
+              contentType: !1
+          }).done(function (response) {
+              someParamToCheck = !1;
+              blobTmp = undefined;
+              /*
+                  params tocheck could be request type: post or files
+              */
+              if (someParamToCheck) {
+                  window.location = HomeUrl();
+              }
+              console.log(response, "image uploaded");
+              window.location = window.location;
+          })
+    return false;
+  } else {
+    return true;
+  }
   }
   $("#formUpload").submit(function (e) {
     if (!updateProfileButtonSubmitted(e)) {
@@ -295,7 +277,6 @@ $(function () {
         });
       }
     }
-
     //$('#profile-image').replaceWith($previewLink); // it works but cannot be dowloaded: no src
     result.children().replaceWith($previewLink);
   }
