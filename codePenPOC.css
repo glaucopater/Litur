@@ -1,0 +1,65 @@
+body {
+  padding: 16px;
+}
+
+form {
+  padding: 16px;
+  margin: 8px;
+  border: 1px solid #ccc;
+  background: #1234ff88;
+  font-weight: bold;
+}
+
+.row {
+  padding: 15px;
+}
+
+#profile-image {
+  padding: 3px;
+  border: 1px dotted #ccc;
+}
+
+.show {
+  display: block !important;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+#actions {
+  margin: 2px 0;
+  padding: 2px 0;
+  display: inline;
+}
+
+@media (max-width: 576px) {
+  #submitButton {
+    width: 100%;
+    display: block;
+  }
+  .btn {
+    width: 100%;
+    margin: 2px 0;
+  }
+}
+
+
+#imgPalette{ 
+  display: block;
+  width:100%;
+  padding:5px;
+  min-height:100px; 
+  text-align:center;
+}
+
+#imgPalette > .paletteColor{
+ border:1px solid white;
+  display: inline-block;  
+   width:100px;
+  min-height:100px;
+}
