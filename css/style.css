@@ -8,9 +8,9 @@ form {
   border: 1px solid #ccc;
   background: #1234ff88;
   font-weight: bold;
-  -webkit-box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
 }
 
 .row {
@@ -21,7 +21,7 @@ form {
   padding: 3px;
   border: 1px dotted #ccc;
   display: block;
-  margin:0px auto; 
+  margin: 0px auto;
 }
 
 .show {
@@ -36,6 +36,7 @@ form {
 .invisible {
   visibility: hidden;
 }
+
 #actions {
   margin: 2px 0;
   padding: 2px 0;
@@ -47,32 +48,34 @@ form {
     width: 100%;
     display: block;
   }
+
   .btn {
     width: 100%;
     margin: 2px 0;
   }
+
   canvas {
-      width: 75%;
+    width: 75%;
   }
 }
 
 @media (max-width: 769px) {
   canvas {
-      width: 75%;
+    width: 75%;
   }
 }
 
-#imgPalette{ 
+#imgPalette {
   display: block;
-  width:100%;
-  padding:5px;
-  min-height:100px; 
-  text-align:center;
+  width: 100%;
+  padding: 5px;
+  min-height: 100px;
+  text-align: center;
 }
 
-#imgPalette > .paletteColor{
-  border:1px solid white;
-  display: inline-block;  
-  width:100px;
-  min-height:100px;
+#imgPalette>.paletteColor {
+  border: 1px solid white;
+  display: inline-block;
+  width: 100px;
+  min-height: 100px;
 }

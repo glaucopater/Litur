@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   var blobTmp = undefined;
   var imageName;
   var ImageMaxWidth = $("input[name=maxWidth]").val() || 640;
@@ -8,7 +8,6 @@ $(function() {
   var imageFilenamePrefix =
     "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
 
-  var tempLog = "";
   var jpegQuality = 1.0;
 
   /*b64toBlob*/
@@ -43,7 +42,7 @@ $(function() {
     var files = e.value;
     if (files.length > 0) {
       var reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         $("#profile-image").attr("src", e.target.result);
       };
       reader.readAsDataURL(files[0]);
@@ -66,12 +65,11 @@ $(function() {
       if (useImageTools) {
         /*Resize with Image Tools */
         ImageTools.resize(
-          files[0],
-          {
+          files[0], {
             width: $("input[name=ImageMaxWidth]").val(), // maximum width
             height: $("input[name=ImageMaxHeight]").val() // maximum height
           },
-          function(blob, didItResize) {
+          function (blob, didItResize) {
             // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
             $("#profile-image").attr("src", window.URL.createObjectURL(blob));
             blobTmp = blob;
@@ -80,7 +78,7 @@ $(function() {
       } else if (useLoadImage) {
         loadImage(
           files[0],
-          function(img) {
+          function (img) {
             $img = $(img);
             $img.attr("id", "profile-image");
 
@@ -91,37 +89,29 @@ $(function() {
                 "href",
                 img.src || img.toDataURL("image/jpeg", jpegQuality)
               );
-            
-            
+
+
             console.log(img, files[0].name, " resized");
 
             var imgToDataUrl = img.toDataURL("image/jpeg", jpegQuality);
 
             var colorThief = new ColorThief();
-         
-            colorThief.getColorAsync(imgToDataUrl, function(color, element) {
-              console.log("getColorAsync", color);
-         
-            });
-              $("#imgPalette").html("");
-             colorThief.getPaletteAsync(imgToDataUrl, function(palette, element) {
-              console.log("getPaletteAsync", palette);
-              
-               $.each(palette,function(index,elem){
-                 console.log("palette "+ index, elem);
-                
-                 
-                
-                $("#imgPalette").append("<div id='palette"+index+"' class='paletteColor' style='background:rgb("+elem.join(",")+")'></div>") 
- });
-       
-                  });
- 
-            $("#profile-image").replaceWith($previewLink); // it works but cannot be dowloaded: no src
 
+            colorThief.getColorAsync(imgToDataUrl, function (color, element) {
+              console.log("getColorAsync", color);
+
+            });
+            $("#imgPalette").html("");
+            colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
+              $.each(palette, function (index, elem) {
+                console.log("palette " + index, elem);
+                $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" + elem.join(",") + ")'></div>")
+              });
+            });
+            $("#profile-image").replaceWith($previewLink); // it works but cannot be dowloaded: no src
             if (img.toBlob) {
               img.toBlob(
-                function(e) {
+                function (e) {
                   console.log("blob created");
                   blobTmp = e;
                 },
@@ -129,13 +119,12 @@ $(function() {
                 jpegQuality
               );
 
-      
+
             } else if (
               img.msToBlob !== undefined &&
               navigator.msSaveBlob !== undefined
             ) {
               /*IE > 10  support */
-
               imgToDataUrl = img.toDataURL("image/jpeg", jpegQuality);
               //remove metadata info for base64
               imgToDataUrl = imgToDataUrl.replace(/^[^,]+,/, "");
@@ -145,30 +134,25 @@ $(function() {
                 type: "image/jpg"
               });
             }
-          },
-          {
+          }, {
             maxWidth: $("input[name=ImageMaxWidth]").val(),
             maxHeight: $("input[name=ImageMaxHeight]").val(),
             canvas: true,
             orientation: true,
             crop: true
           } // Options
-
-          
         );
-        //enable actions
-        //$("#actions").removeClass("invisible");
+        
       } else {
         var reader = new FileReader();
         var file = files[0];
         reader.addEventListener(
           "load",
-          function() {
+          function () {
             $("#profile-image").attr("src", reader.result);
           },
           false
         );
-
         if (file) {
           reader.readAsDataURL(file);
         }
@@ -204,32 +188,31 @@ $(function() {
       return true;
     }
   }
-
-  $("#formUpload").submit(function(e) {
+  $("#formUpload").submit(function (e) {
     if (!updateProfileButtonSubmitted(e)) {
       e.preventDefault();
     }
   });
 
-  $("#profileImage").on("change", function(e) {
+  $("#profileImage").on("change", function (e) {
     onImageValueChanged(e);
   });
 
-  $("input[name=ImageMaxWidth]").on("change", function(e) {
+  $("input[name=ImageMaxWidth]").on("change", function (e) {
     ImageMaxWidth =
-      $("input[name=ImageMaxWidth]").val() > 0
-        ? $("input[name=ImageMaxWidth]").val()
-        : ImageMaxWidth;
+      $("input[name=ImageMaxWidth]").val() > 0 ?
+      $("input[name=ImageMaxWidth]").val() :
+      ImageMaxWidth;
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
     console.log(ImageMaxWidth);
   });
 
-  $("input[name=ImageMaxHeight]").on("change", function(e) {
+  $("input[name=ImageMaxHeight]").on("change", function (e) {
     ImageMaxHeigth =
-      $("input[name=ImageMaxHeight]").val() > 0
-        ? $("input[name=ImageMaxHeight]").val()
-        : ImageMaxHeigth;
+      $("input[name=ImageMaxHeight]").val() > 0 ?
+      $("input[name=ImageMaxHeight]").val() :
+      ImageMaxHeigth;
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
     console.log(ImageMaxHeigth);
@@ -238,7 +221,7 @@ $(function() {
   var result = $("#result");
   var currentFile;
 
-  $("#edit").on("click", function(event) {
+  $("#edit").on("click", function (event) {
     event.preventDefault();
     var imgNode = result.find("img, canvas");
     var img = imgNode[0];
@@ -251,15 +234,15 @@ $(function() {
           img.width / pixelRatio - 40,
           img.height / pixelRatio - 40
         ],
-        onSelect: function(coords) {
+        onSelect: function (coords) {
           coordinates = coords;
         },
-        onRelease: function() {
+        onRelease: function () {
           coordinates = null;
         }
       })
       .parent()
-      .on("click", function(event) {
+      .on("click", function (event) {
         event.preventDefault();
       });
   });
@@ -281,7 +264,7 @@ $(function() {
 
       if (img.toBlob) {
         img.toBlob(
-          function(e) {
+          function (e) {
             console.log(e, "blob created");
             blobTmp = e;
           },
@@ -308,7 +291,7 @@ $(function() {
     result.children().replaceWith($previewLink);
   }
 
-  $("#crop").on("click", function(event) {
+  $("#crop").on("click", function (event) {
     event.preventDefault();
     var img = result.find("img, canvas")[0];
     var pixelRatio = window.devicePixelRatio || 1;
@@ -330,14 +313,14 @@ $(function() {
   });
 });
 
-mainColor = function(imageSrc) {
+mainColor = function (imageSrc) {
   if (!imageSrc) {
     image = $("img.image").get(0);
   } else image = $(imageSrc);
 
   var colorThief = new ColorThief();
 
-  colorThief.getColorAsync("https://source.unsplash.com/random", function(
+  colorThief.getColorAsync("https://source.unsplash.com/random", function (
     color,
     element
   ) {
@@ -345,7 +328,7 @@ mainColor = function(imageSrc) {
   });
 
   /* When the image is loaded */
-  image.onload = function() {
+  image.onload = function () {
     console.log(image, "loaded");
     var color = colorThief.getPalette(image, 8);
 
@@ -354,15 +337,15 @@ mainColor = function(imageSrc) {
   };
 };
 
-// mainColor();
-ColorThief.prototype.getPaletteAsync = function(imageUrl, callback, quality) {
-    var thief = this;
-    this.getImageData(imageUrl, function(imageData){
-        sourceImage = document.createElement("img");
-        sourceImage.addEventListener('load' , function(){
-            var palette = thief.getPalette(sourceImage, 5, quality);
-            callback(palette, this);
-        });
-        sourceImage.src = imageData;      
+// ColorThief util extension
+ColorThief.prototype.getPaletteAsync = function (imageUrl, callback, quality) {
+  var thief = this;
+  this.getImageData(imageUrl, function (imageData) {
+    sourceImage = document.createElement("img");
+    sourceImage.addEventListener('load', function () {
+      var palette = thief.getPalette(sourceImage, 5, quality);
+      callback(palette, this);
     });
+    sourceImage.src = imageData;
+  });
 };
