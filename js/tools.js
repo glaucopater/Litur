@@ -89,22 +89,11 @@ $(function () {
                 "href",
                 img.src || img.toDataURL("image/jpeg", jpegQuality)
               );
-
-
-            console.log(img, files[0].name, " resized");
-
             var imgToDataUrl = img.toDataURL("image/jpeg", jpegQuality);
-
             var colorThief = new ColorThief();
-
-            colorThief.getColorAsync(imgToDataUrl, function (color, element) {
-              console.log("getColorAsync", color);
-
-            });
             $("#imgPalette").html("");
             colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
               $.each(palette, function (index, elem) {
-                console.log("palette " + index, elem);
                 $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" + elem.join(",") + ")'></div>")
               });
             });
@@ -118,8 +107,6 @@ $(function () {
                 "image/jpeg",
                 jpegQuality
               );
-
-
             } else if (
               img.msToBlob !== undefined &&
               navigator.msSaveBlob !== undefined
@@ -156,7 +143,6 @@ $(function () {
         if (file) {
           reader.readAsDataURL(file);
         }
-
         console.log("Filereader only");
       }
     }
@@ -205,7 +191,6 @@ $(function () {
       ImageMaxWidth;
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
-    console.log(ImageMaxWidth);
   });
 
   $("input[name=ImageMaxHeight]").on("change", function (e) {
@@ -215,7 +200,6 @@ $(function () {
       ImageMaxHeigth;
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
-    console.log(ImageMaxHeigth);
   });
 
   var result = $("#result");
@@ -265,7 +249,6 @@ $(function () {
       if (img.toBlob) {
         img.toBlob(
           function (e) {
-            console.log(e, "blob created");
             blobTmp = e;
           },
           "image/jpeg",
@@ -312,30 +295,6 @@ $(function () {
     }
   });
 });
-
-mainColor = function (imageSrc) {
-  if (!imageSrc) {
-    image = $("img.image").get(0);
-  } else image = $(imageSrc);
-
-  var colorThief = new ColorThief();
-
-  colorThief.getColorAsync("https://source.unsplash.com/random", function (
-    color,
-    element
-  ) {
-    console.log("async", color, element.src);
-  });
-
-  /* When the image is loaded */
-  image.onload = function () {
-    console.log(image, "loaded");
-    var color = colorThief.getPalette(image, 8);
-
-    var color1 = "rgb(" + color[0] + ")";
-    var color2 = "rgb(" + color[1] + ")";
-  };
-};
 
 // ColorThief util extension
 ColorThief.prototype.getPaletteAsync = function (imageUrl, callback, quality) {
