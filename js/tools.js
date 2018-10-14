@@ -150,10 +150,10 @@ $(function () {
 
   /*updateProfileButtonSubmitted*/
   function updateProfileButtonSubmitted(e) {
-    // Se l'immagine é cambiata, blocca propagazione ed effettua l'elaborazione
+    console.log(updateProfileButtonSubmitted, e)
+    // If the image is changed, stop propagation and compute image
     if (blobTmp !== undefined) {
       //e.preventDefault();
-
       var copyFormDataNew = new FormData();
       var firstName = $("input[name=FirstName]").val();
       var secondName = $("input[name=LastName]").val();
@@ -192,7 +192,7 @@ $(function () {
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
   });
-
+  
   $("input[name=ImageMaxHeight]").on("change", function (e) {
     ImageMaxHeigth =
       $("input[name=ImageMaxHeight]").val() > 0 ?
@@ -262,7 +262,7 @@ $(function () {
         imgToDataUrl = img.toDataURL("image/jpeg", jpegQuality);
         //remove metadata info for base64
         imgToDataUrl = imgToDataUrl.replace(/^[^,]+,/, "");
-        const contentType = "image/jpeg";
+        let contentType = "image/jpeg";
         //blobTmp = e; //working but PNG
         blobTmp = new Blob([b64toBlob(imgToDataUrl, contentType)], {
           type: "image/jpg"
