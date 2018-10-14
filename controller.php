@@ -34,7 +34,7 @@ function getFolderContent($folder) {
 }
 
 if($_POST && $_FILES) {
-    //echo "Server response after POST:";print_r($_POST);print_r($_FILES);
+    echo "Server response after POST:"; print_r($_POST); print_r($_FILES);
     
     $response[] = $_POST;
     $response[] = $_FILES;
@@ -76,7 +76,7 @@ if($_GET) {
     $response[] = "Server response after GET :";
     //print_r($_GET);
     //header('Content-type: application/json');
-    echo  json_encode($response);
+    echo json_encode($response);
 }
 else if($_FILES) {
     //for filereader only, no trasformation on client side

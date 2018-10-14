@@ -9,6 +9,8 @@ $(function () {
     "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
 
   var jpegQuality = 1.0;
+    
+  /* Generic Helpers/*
 
   /*b64toBlob*/
   function b64toBlob(b64Data, contentType, sliceSize) {
@@ -35,6 +37,14 @@ $(function () {
       type: contentType
     });
     return blob;
+  }
+
+  function BackendControllerUrl(){
+    return "controller.php";
+  }
+
+  function HomeUrl(){
+    return "./";
   }
 
   /*fileUploader_valueChanged*/
@@ -163,12 +173,28 @@ $(function () {
         LastName: secondName,
         Email: email
       };
-
       var myJSON = JSON.stringify(objt);
-
       copyFormDataNew.append("resizedModel", myJSON);
       copyFormDataNew.append("resizedImage", blobTmp, imageName);
-
+        
+        $.ajax({
+                url: BackendControllerUrl(),
+                type: "POST",
+                data: copyFormDataNew,
+                processData: !1,
+                contentType: !1
+            }).done(function (response) {
+                someParamToCheck = !1;
+                blobTmp = undefined;
+                /*
+                    params tocheck could be request type: post or files
+                */
+                if (someParamToCheck) {
+                    window.location = HomeUrl();
+                }
+                console.log(response, "image uploaded");
+                window.location = window.location;
+            })
       return false;
     } else {
       return true;
@@ -192,7 +218,7 @@ $(function () {
     imageFilenamePrefix =
       "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
   });
-  
+
   $("input[name=ImageMaxHeight]").on("change", function (e) {
     ImageMaxHeigth =
       $("input[name=ImageMaxHeight]").val() > 0 ?
