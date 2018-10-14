@@ -38,9 +38,7 @@ if($_POST && $_FILES) {
     $response[] = $_POST;
     $response[] = $_FILES;
     // store_file($temp_filename,$original_filename);
-    if(isset($_POST["image"])) 
-        //|| isset($_POST["resizedModel"]))
-    {
+    if(isset($_POST["image"])){
         file_put_contents($storeFolder."/"."file" .time(). ".jpg", $_POST["image"]);        
     }
     else if(isset($_FILES["resizedImage"])) {               

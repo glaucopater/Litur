@@ -79,3 +79,11 @@ form {
   width: 100px;
   min-height: 100px;
 }
+
+.paletteTextContainer {
+  text-align: center;
+}
+
+.paletteText {
+  width:100%;
+}

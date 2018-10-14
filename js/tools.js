@@ -91,13 +91,20 @@ $(function () {
                 img.src || img.toDataURL("image/jpeg", jpegQuality)
               );
             var imgToDataUrl = img.toDataURL("image/jpeg", jpegQuality);
-            var colorThief = new ColorThief();
+            
+            //clean previous palette
             $("#imgPalette").html("");
+
+            var colorThief = new ColorThief();
             colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
               $.each(palette, function (index, elem) {
-                $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" + elem.join(",") + ")'></div>")
+                var currentPaletteString =  elem.join(",");
+                $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" +currentPaletteString + ")'></div>");
               });
+              $("#paletteText").val(palette.join(" "));
+              $(".paletteTextContainer").removeClass("hidden");
             });
+          
             $("#profile-image").replaceWith($previewLink); // it works but cannot be dowloaded: no src
             if (img.toBlob) {
               img.toBlob(
@@ -158,6 +165,7 @@ $(function () {
       //e.preventDefault();
       var copyFormDataNew = new FormData();
       copyFormDataNew.append("resizedImage", blobTmp, imageName);
+      copyFormDataNew.append("palette", $("#palette").val());
         
       $.ajax({
               url: BackendControllerUrl(),
@@ -309,7 +317,7 @@ ColorThief.prototype.getPaletteAsync = function (imageUrl, callback, quality) {
   this.getImageData(imageUrl, function (imageData) {
     sourceImage = document.createElement("img");
     sourceImage.addEventListener('load', function () {
-      var palette = thief.getPalette(sourceImage, 5, quality);
+      var palette = thief.getPalette(sourceImage, 7, quality);
       callback(palette, this);
     });
     sourceImage.src = imageData;
