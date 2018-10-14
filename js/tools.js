@@ -165,7 +165,7 @@ $(function () {
       //e.preventDefault();
       var copyFormDataNew = new FormData();
       copyFormDataNew.append("resizedImage", blobTmp, imageName);
-      copyFormDataNew.append("palette", $("#palette").val());
+      copyFormDataNew.append("palette", $("#paletteText").val());
         
       $.ajax({
               url: BackendControllerUrl(),

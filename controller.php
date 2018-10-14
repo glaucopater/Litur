@@ -6,12 +6,12 @@ main controller
 
 $storeFolder = getcwd(). "/images/";
 $response = array();
-$imageFilenamePrefix = "resized_";
+$imageFilenamePrefix = "rsz_";
 
-function store_file($temp_filename,$original_filename) {
+function store_file($temp_filename,$original_filename,$extra="") {
     global $storeFolder;
 	global $imageFilenamePrefix;  
-	$original_filename = $imageFilenamePrefix.$original_filename;
+	$original_filename = $imageFilenamePrefix.$extra.$original_filename;
     move_uploaded_file ($temp_filename ,  $storeFolder.$original_filename );
 }
 
@@ -44,7 +44,11 @@ if($_POST && $_FILES) {
     else if(isset($_FILES["resizedImage"])) {               
         $temp_filename = $_FILES["resizedImage"]["tmp_name"]; 
         $original_filename = $_FILES["resizedImage"]["name"]; 
-        store_file($temp_filename,$original_filename);
+
+        $palette = $_POST["palette"];
+        $paletteString =  str_replace(",","-",$palette);
+        $paletteString =  str_replace(" ","_",$paletteString);
+        store_file($temp_filename,$original_filename,$paletteString);
     }
     
 	//header('Content-type: application/json');
