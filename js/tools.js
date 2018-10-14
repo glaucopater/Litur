@@ -154,9 +154,10 @@ $(function() {
             crop: true
           } // Options
 
-          //enable actions
+          
         );
-        $("#actions").removeClass("invisible");
+        //enable actions
+        //$("#actions").removeClass("invisible");
       } else {
         var reader = new FileReader();
         var file = files[0];

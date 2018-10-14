@@ -8,16 +8,13 @@ form {
   border: 1px solid #ccc;
   background: #1234ff88;
   font-weight: bold;
+  -webkit-box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 34px -6px rgba(0,0,0,0.75);
 }
 
 .row {
   padding: 15px;
-}
-
-
-.row .size {
-  padding: 15px;
-  display: none;
 }
 
 #profile-image {

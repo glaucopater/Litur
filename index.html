@@ -19,7 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/2.19.0/load-image.all.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.jss"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
 
  
   <script src="https://www.rlieh.com/testing/bs_upload_resize/js/ImageTools.js"></script> 
@@ -29,10 +29,10 @@
 </head>
 
 <body>
-  <h1>Image Resize</h1>
+  <h1>Image Resize and Upload</h1>
 
   <form id="formUpload" action="controller.php" enctype="multipart/form-data" method="POST">
-    <div class="row size">
+    <div class="row hidden">
       <div class="form-group col-xs-6">
         <label for="ImageMaxWidth">Max Width</label>
         <input name="ImageMaxWidth" class="form-control" id="maxWidth" aria-describedby="emailHelp" placeholder="Enter width" value="640" type="number" pattern="[0-9]*" inputmode="numeric">
@@ -65,10 +65,7 @@
     <button type="submit" class="btn btn-primary" id="submitButton">  
             <i class="fa fa-camera-retro fa-lg"></i> Upload 
         </button>
-    <div id="actions" class="invisible">
-      <button type="button" class="btn btn-primary" id="edit"><i class="fa fa-edit"></i> Edit</button>
-      <button type="button" class="btn btn-primary" id="crop"><i class="fa fa-cut"></i> Crop</button>
-    </div>
+ 
   </form>
 
   <div class="container h-100">
