@@ -1,2 +1,2 @@
-# ResizeAndUpload
-A fast way to upload an image
+# Litur
+Litur means color in icelandic and this app is about photo, images and colors...
