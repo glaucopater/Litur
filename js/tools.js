@@ -99,14 +99,17 @@ $(function () {
               colorDominant = dominant;
             });
             colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
+               //color dominant add and adjustment
+               if(colorDominant !== palette[0] && !palette.includes(colorDominant)){
+                console.log("dominant adj", colorDominant, palette);
+                palette.unshift(colorDominant);
+                palette.pop();
+              }
               $.each(palette, function (index, elem) {
                 var currentPaletteString =  elem.join(",");
                 $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" +currentPaletteString + ")'></div>");
               });
-              //color dominant add and adjustment
-              if(colorDominant !== palette[0] && !palette.includes(colorDominant)){
-                palette.unshift(colorDominant);
-              }
+             
               $("#paletteText").val(palette.join(" "));
               $(".paletteTextContainer").removeClass("hidden");
             });
@@ -114,8 +117,7 @@ $(function () {
             $("#profile-image").replaceWith($previewLink); // it works but cannot be dowloaded: no src
             if (img.toBlob) {
               img.toBlob(
-                function (e) {
-                  console.log("blob created");
+                function (e) { 
                   blobTmp = e;
                 },
                 "image/jpeg",
