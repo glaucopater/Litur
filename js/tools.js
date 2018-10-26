@@ -3,8 +3,6 @@ $(function () {
   var imageName;
   var ImageMaxWidth = $("input[name=maxWidth]").val() || 640;
   var ImageMaxHeigth = $("input[name=maxHeigth]").val() || 480;
-  //var d = new Date();
-  //var imageFilenamePrefix =  d.toISOString() + "resized_" +  ImageMaxWidth + "x" + ImageMaxHeigth + "_";
   var imageFilenamePrefix =
     "resized_" + ImageMaxWidth + "x" + ImageMaxHeigth + "_";
 
@@ -96,11 +94,22 @@ $(function () {
             $("#imgPalette").html("");
 
             var colorThief = new ColorThief();
+            var colorDominant = null;
+            colorThief.getColorAsync(imgToDataUrl, function (dominant) { 
+              colorDominant = dominant;
+            });
             colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
+               //color dominant add and adjustment
+               if(colorDominant !== palette[0] && !palette.includes(colorDominant)){
+                console.log("dominant adj", colorDominant, palette);
+                palette.unshift(colorDominant);
+                palette.pop();
+              }
               $.each(palette, function (index, elem) {
                 var currentPaletteString =  elem.join(",");
                 $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" +currentPaletteString + ")'></div>");
               });
+             
               $("#paletteText").val(palette.join(" "));
               $(".paletteTextContainer").removeClass("hidden");
             });
@@ -108,8 +117,7 @@ $(function () {
             $("#profile-image").replaceWith($previewLink); // it works but cannot be dowloaded: no src
             if (img.toBlob) {
               img.toBlob(
-                function (e) {
-                  console.log("blob created");
+                function (e) { 
                   blobTmp = e;
                 },
                 "image/jpeg",
@@ -176,13 +184,10 @@ $(function () {
           }).done(function (response) {
               someParamToCheck = !1;
               blobTmp = undefined;
-              /*
-                  params tocheck could be request type: post or files
-              */
+              ///params tocheck could be request type: post or files
               if (someParamToCheck) {
                   window.location = HomeUrl();
               }
-              console.log(response, "image uploaded");
               window.location = window.location;
           })
     return false;
