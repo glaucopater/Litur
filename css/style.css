@@ -22,6 +22,9 @@ form {
   border: 1px dotted #ccc;
   display: block;
   margin: 0px auto;
+  -webkit-box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 34px -6px rgba(0, 0, 0, 0.75);
 }
 
 .show {
@@ -43,6 +46,30 @@ form {
   display: inline;
 }
 
+#imgPalette {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  min-height: 100px;
+  text-align: center;
+}
+
+#imgPalette > .paletteColor {
+  border: 1px solid white;
+  display: inline-block;
+  width: calc(640px/7);
+  min-height: 100px;
+}
+
+.paletteTextContainer {
+  text-align: center;
+}
+
+.paletteText {
+  width:100%;
+}
+
+
 @media (max-width: 576px) {
   #submitButton {
     width: 100%;
@@ -53,9 +80,9 @@ form {
     width: 100%;
     margin: 2px 0;
   }
-
-  canvas {
-    width: 75%;
+  .paletteColor {
+    width: calc(55%/7);
+    min-height: 50px;
   }
 }
 
@@ -63,27 +90,9 @@ form {
   canvas {
     width: 75%;
   }
-}
-
-#imgPalette {
-  display: block;
-  width: 100%;
-  padding: 5px;
-  min-height: 100px;
-  text-align: center;
-}
-
-#imgPalette>.paletteColor {
-  border: 1px solid white;
-  display: inline-block;
-  width: 100px;
-  min-height: 100px;
-}
-
-.paletteTextContainer {
-  text-align: center;
-}
-
-.paletteText {
-  width:100%;
+  
+  #imgPalette > .paletteColor {
+    width: calc(55%/7);
+    min-height: 50px;
+  }
 }

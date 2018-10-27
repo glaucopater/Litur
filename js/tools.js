@@ -98,19 +98,19 @@ $(function () {
             colorThief.getColorAsync(imgToDataUrl, function (dominant) { 
               colorDominant = dominant;
             });
-            colorThief.getPaletteAsync(imgToDataUrl, function (palette, element) {
-               //color dominant add and adjustment
-               if(colorDominant !== palette[0] && !palette.includes(colorDominant)){
-                console.log("dominant adj", colorDominant, palette);
+            colorThief.getPaletteAsync(imgToDataUrl, function (palette) {
+              var currentPaletteText = []; 
+              //color dominant add and adjustment
+              if(colorDominant !== palette[0] && !palette.includes(colorDominant)){
                 palette.unshift(colorDominant);
                 palette.pop();
               }
               $.each(palette, function (index, elem) {
                 var currentPaletteString =  elem.join(",");
                 $("#imgPalette").append("<div id='palette" + index + "' class='paletteColor' style='background:rgb(" +currentPaletteString + ")'></div>");
+                currentPaletteText.push("c" + index + ":{" + currentPaletteString + "}");
               });
-             
-              $("#paletteText").val(palette.join(" "));
+              $("#paletteText").val(currentPaletteText.join(";"));
               $(".paletteTextContainer").removeClass("hidden");
             });
           
@@ -160,14 +160,14 @@ $(function () {
         if (file) {
           reader.readAsDataURL(file);
         }
-        console.log("Filereader only");
+        
       }
     }
   }
 
   /*updateProfileButtonSubmitted*/
   function updateProfileButtonSubmitted(e) {
-    console.log(updateProfileButtonSubmitted, e)
+    
     // If the image is changed, stop propagation and compute image
     if (blobTmp !== undefined) {
       //e.preventDefault();
