@@ -10,4 +10,6 @@ Feature
 
 Litur in action
 ---
-![GitHub Logo](/demo/litur.jpg)
+![Litur Demo](/demo/litur.jpg)
+=======
+Litur means color in icelandic and this app is about photo, images and colors... 
